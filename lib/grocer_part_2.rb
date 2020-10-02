@@ -5,8 +5,9 @@ def apply_coupons(cart, coupons)
   #
   # REMEMBER: This method **should** update cart
   cart.each { |item|
-    if item[:item] == coupons[:item] && item[:count] > coupons[:num]
-      item[:count] -= coupons[:num]
+    if item[:item] == coupons[:item] && item[:count] >= coupons[:num]
+      item[:count] = item[:count] - coupons[:num]
+      couponItem = {}
       couponItem[:item] = item[:item] + " W/COUPON"
       couponItem[:count] = coupons[:num]
       couponItem[:clearance] = item[:clearance]
