@@ -5,17 +5,18 @@ def apply_coupons(cart, coupons)
   #
   # REMEMBER: This method **should** update cart
   cart.each { |item|
-    if item[:item] == coupons[:item] && item[:count] >= coupons[:num]
-      item[:count] = item[:count] - coupons[:num]
+    currentCouponItem = find_item_by_name_in_collection(item[:item], coupons)
+    if currentCouponItem && item[:item] == currentCouponItem[:item] && item[:count] >= currentCouponItem[:num]
+      item[:count] = item[:count] - currentCouponItem[:num]
       couponItem = {}
       couponItem[:item] = item[:item] + " W/COUPON"
-      couponItem[:count] = coupons[:num]
+      couponItem[:count] = currentCouponItem[:num]
       couponItem[:clearance] = item[:clearance]
-      couponItem[:price] = coupons[:cost] / coupons[:num]
+      couponItem[:price] = currentCouponItem[:cost] / currentCouponItem[:num]
       cart.push(couponItem)
     end
-    cart
   }
+    cart
 end
 
 def apply_clearance(cart)
