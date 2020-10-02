@@ -7,9 +7,9 @@ def apply_coupons(cart, coupons)
   cart.each { |item|
     if item[:item] == coupons[:item] && item[:count] > coupons[:num]
       item[:count] -= coupons[:num]
-      couponItem = item
+      couponItem[:item] = item[:item] + " W/COUPON"
       couponItem[:count] = coupons[:num]
-      couponItem[:item] = couponItem[:item] + "W/COUPON"
+      couponItem[:clearance] = item[:clearance]
       couponItem[:price] = coupons[:cost] / coupons[:num]
       cart.push(couponItem)
     end
